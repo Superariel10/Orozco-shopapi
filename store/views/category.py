@@ -7,7 +7,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from django.db.models import Count
 
 from store.models               import Category
-from shopapi.store.serializers.category import CategorySerializer
+from store.serializers.category import CategorySerializer
 from store.permissions          import IsStaffOrReadOnly
 from store.filters              import CategoryFilter
 from store.pagination           import StandardPagination
@@ -24,6 +24,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
     ordering_fields    = ['name', 'created_at']
     ordering           = ['name']
 
+   # store/views/category.py — reemplazar la acción active_products
     @action(detail=True, methods=['get'], url_path='products')
     def active_products(self, request, pk=None):
         from store.models import Product
@@ -53,4 +54,4 @@ class CategoryViewSet(viewsets.ModelViewSet):
                 }
                 for c in qs.order_by('name')
             ],
-        })  
+        })
