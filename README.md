@@ -5,13 +5,13 @@ uv add django djangorestframework djangorestframework-simplejwt
 sudo chown -R shopapi:www-data /opt/Orozco-shopapi/staticfiles
 sudo chmod -R 755 /opt/Orozco-shopapi/staticfiles
 sudo chmod -R 755 /opt/Orozco-shopapi
-
+sudo usermod -aG www-data root
 # [Unit]
 # Description=Gunicorn daemon for ShopAPI
 # After=network.target postgresql.service
 
 # [Service]
-# User=shopapi
+# User=root
 # Group=www-data
 # WorkingDirectory=/opt/Orozco-shopapi
 # Environment="PATH=/opt/Orozco*shopapi/.venv/bin"
@@ -28,3 +28,5 @@ sudo chmod -R 755 /opt/Orozco-shopapi
 
 # [Install]
 # WantedBy=multi-user.target
+
+curl -v --unix-socket /run/gunicorn-shopapi.sock http://localhost/api/health/
